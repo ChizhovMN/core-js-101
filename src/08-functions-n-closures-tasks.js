@@ -24,7 +24,7 @@
  *
  */
 function getComposition(/* f, g */) {
-  throw new Error('Not implemented');
+  // return f(g);
 }
 
 
@@ -44,8 +44,8 @@ function getComposition(/* f, g */) {
  *   power05(16) => 4
  *
  */
-function getPowerFunction(/* exponent */) {
-  throw new Error('Not implemented');
+function getPowerFunction(exponent) {
+  return (a) => a ** exponent;
 }
 
 
@@ -62,10 +62,20 @@ function getPowerFunction(/* exponent */) {
  *   getPolynom(8)     => y = 8
  *   getPolynom()      => null
  */
-function getPolynom() {
-  throw new Error('Not implemented');
+function getPolynom(...args) {
+  // const showArgs = () => arguments;
+  const arr = [...args];
+  const check = (num) => {
+    const result = num === 0 ? '' : num;
+    return result;
+  };
+  switch (arr.length) {
+    case 1: return `y = ${arr[0]}`;
+    case 2: return `y = ${check(arr[0])}x - ${arr[1]}`;
+    case 3: return `y = ${check(arr[0])}*x^2 - ${check(arr[1])} - ${arr[2]}`;
+    default: return null;
+  }
 }
-
 
 /**
  * Memoizes passed function and returns function
