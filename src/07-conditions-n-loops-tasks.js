@@ -132,8 +132,12 @@ function isTriangle(a, b, c) {
  *   { top:20, left:20, width: 20, height: 20 }    =>  false
  *
  */
-function doRectanglesOverlap(/* rect1, rect2 */) {
-  throw new Error('Not implemented');
+function doRectanglesOverlap(rect1, rect2) {
+  const rect1downPoint = [rect1.left + rect1.width, rect1.top + rect1.height];
+  if (rect1downPoint[0] > rect2.left && rect1downPoint[1] > rect2.top) {
+    return true;
+  }
+  return false;
 }
 
 
@@ -440,8 +444,21 @@ function getCommonDirectoryPath(/* pathes */) {
  *                         [ 6 ]]
  *
  */
-function getMatrixProduct(/* m1, m2 */) {
-  throw new Error('Not implemented');
+function getMatrixProduct(m1, m2) {
+  const m1Rows = m1.length;
+  const m1Cols = m1[0].length;
+  const m2Cols = m2[0].length;
+  const matrix = [];
+  for (let row = 0; row < m1Rows; row += 1) {
+    matrix[row] = [];
+    for (let col = 0; col < m2Cols; col += 1) {
+      matrix[row][col] = 0;
+      for (let i = 0; i < m1Cols; i += 1) {
+        matrix[row][col] += m1[row][i] * m2[i][col];
+      }
+    }
+  }
+  return matrix;
 }
 
 
@@ -475,8 +492,32 @@ function getMatrixProduct(/* m1, m2 */) {
  *    [    ,   ,    ]]
  *
  */
-function evaluateTicTacToePosition(/* position */) {
-  throw new Error('Not implemented');
+function evaluateTicTacToePosition(position) {
+  const arr = position.map((item) => {
+    const element = item;
+    if (element.length < 3) {
+      element.push(undefined);
+    }
+    return element;
+  }).flat();
+
+  const winLines = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6],
+  ];
+  for (let i = 0; i < winLines.length; i += 1) {
+    const [el1, el2, el3] = winLines[i];
+    if (arr[el1] === arr[el2] && arr[el1] === arr[el3] && arr[el1] !== undefined) {
+      return arr[el1];
+    }
+  }
+  return undefined;
 }
 
 
